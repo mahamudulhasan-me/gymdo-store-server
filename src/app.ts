@@ -12,7 +12,7 @@ app.use(cors());
 app.use("/api", router);
 
 app.get("/", (req, res) => {
-  res.send("Car Washing System Booking is Running!");
+  res.send("GYMDO STORE SERVER IS RUNNING");
 });
 
 app.use(globalErrorHandler);

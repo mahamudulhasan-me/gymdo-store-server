@@ -26,7 +26,10 @@ export const ZodProductCreateValidationSchema = z.object({
       required_error: "Thumbnail is required",
       invalid_type_error: "Thumbnail must be a string",
     }),
-    images: z.array(z.string()),
+    image: z.string({
+      required_error: "Image is required",
+      invalid_type_error: "Image must be a string",
+    }),
     category: z.string({
       required_error: "Category is required",
       invalid_type_error: "Category must be a string",

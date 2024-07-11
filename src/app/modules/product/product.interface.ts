@@ -7,7 +7,7 @@ export interface IProduct {
   stock: number;
   description: string;
   thumbnail: string;
-  images: string[];
+  image: string;
   subcategory: string;
   isDeleted: boolean;
 }

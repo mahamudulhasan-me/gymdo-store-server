@@ -9,7 +9,6 @@ const productSchema = new Schema<IProduct>(
     },
     description: {
       type: String,
-      required: true,
     },
     price: {
       type: Number,
@@ -27,9 +26,8 @@ const productSchema = new Schema<IProduct>(
       type: String,
       required: true,
     },
-    images: {
-      type: [String],
-      required: true,
+    image: {
+      type: String,
     },
     category: {
       type: String,

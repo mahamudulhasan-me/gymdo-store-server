@@ -5,6 +5,8 @@ import { ZodProductCreateValidationSchema } from "./product.validation";
 
 const router = Router();
 
+router.get("/", ProductControllers.getProducts);
+router.get("/:id", ProductControllers.getProduct);
 router.post(
   "/",
   validRequestHandler(ZodProductCreateValidationSchema),

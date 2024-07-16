@@ -60,9 +60,9 @@ export const ZodOrderValidationSchema = z.object({
           required_error: "City is required",
           invalid_type_error: "City must be a string",
         }),
-        postalCode: z.string({
+        postalCode: z.number({
           required_error: "Postal code is required",
-          invalid_type_error: "Postal code must be a string",
+          invalid_type_error: "Postal code must be a number",
         }),
         address: z.string({
           required_error: "Address is required",

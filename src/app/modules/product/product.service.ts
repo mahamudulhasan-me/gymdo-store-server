@@ -8,19 +8,6 @@ const createProduct = async (product: IProduct): Promise<IProduct> => {
   return newProduct;
 };
 
-// const getProducts = async (
-//   query: Record<string, unknown>
-// ): Promise<IProduct[]> => {
-//   const productsQuery = new QueryBuilder(ProductModel.find(), query)
-//     .search(["name"])
-//     .filter()
-//     .sort()
-//     .paginate()
-//     .fields();
-//   const products = await productsQuery.modelQuery.exec();
-//   return products;
-// };
-
 interface QueryParams {
   category?: string;
   brand?: string;
@@ -36,7 +23,7 @@ const getProducts = async (querys: QueryParams): Promise<IProduct[]> => {
   const { category, brand, searchTerm, sort, price } = querys;
 
   // Constructing the query object
-  const query: any = {};
+  const query: any = { isDeleted: { $ne: true } };
 
   if (category) {
     query.category = category;
@@ -69,12 +56,38 @@ const getProducts = async (querys: QueryParams): Promise<IProduct[]> => {
 };
 
 const getProduct = async (id: string): Promise<IProduct> => {
-  const product = await ProductModel.findById(id);
+  const product = await ProductModel.findOne({
+    _id: id,
+    isDeleted: { $ne: true },
+  });
   if (!product) throw new AppError(404, "Product not found!");
   return product;
 };
+
+const updateProduct = async (productId: string, data: IProduct) => {
+  const updatedProduct = await ProductModel.findOneAndUpdate(
+    { _id: productId, isDeleted: { $ne: true } },
+    data,
+    { new: true }
+  );
+  if (!updatedProduct)
+    throw new AppError(404, "Product not found or has been deleted!");
+  return updatedProduct;
+};
+
+const deleteProduct = async (productId: string) => {
+  const deletedProduct = await ProductModel.findByIdAndUpdate(productId, {
+    isDeleted: true,
+  });
+  if (!deletedProduct)
+    throw new AppError(404, "Product not found or has already been deleted!");
+  return deletedProduct;
+};
+
 export const ProductServices = {
   createProduct,
   getProducts,
   getProduct,
+  updateProduct,
+  deleteProduct,
 };

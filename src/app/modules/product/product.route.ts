@@ -13,4 +13,10 @@ router.post(
   ProductControllers.createProduct
 );
 
+router.patch(
+  "/:id",
+  validRequestHandler(ZodProductCreateValidationSchema),
+  ProductControllers.updateProduct
+);
+router.delete("/:id", ProductControllers.deleteProduct);
 export const ProductRouters = router;

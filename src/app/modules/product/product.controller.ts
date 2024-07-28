@@ -32,8 +32,34 @@ const getProduct = asyncHandler(async (req, res) => {
   });
 });
 
+const updateProduct = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const data = req.body;
+
+  const updatedProduct = await ProductServices.updateProduct(id, data);
+  sendResponse(res, {
+    success: true,
+    statusCode: 200,
+    message: "Product update successfully",
+    data: updatedProduct,
+  });
+});
+
+const deleteProduct = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const deletedProduct = await ProductServices.deleteProduct(id);
+  sendResponse(res, {
+    success: true,
+    statusCode: 200,
+    message: "Product deleted successfully",
+    data: deletedProduct,
+  });
+});
+
 export const ProductControllers = {
   createProduct,
   getProducts,
   getProduct,
+  updateProduct,
+  deleteProduct,
 };
